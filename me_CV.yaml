@@ -1,360 +1,168 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
 cv:
   name: 钱甫新
-  headline:
-  location: San Francisco, CA
-  email: john.doe@email.com
-  photo:
-  phone:
-  website: https://rendercv.com/
-  social_networks:
-    - network: LinkedIn
-      username: rendercv
-    - network: GitHub
-      username: rendercv
-  custom_connections:
+  headline: AI应用工程师｜LLM & Agent系统
+  location: 中国·合肥
+  email: Mr_Qian_Ives@163.com
+  phone: +86-151-5575-8979
+  # social_networks:
+  #   - network: GitHub
+  #     username: QianFuXin
+
   sections:
-    Welcome to RenderCV:
-      - RenderCV reads a CV written in a YAML file, and generates a PDF with professional typography.
-      - Each section title is arbitrary.
-      - You can choose any of the 9 entry types for each section.
-      - Markdown syntax is supported everywhere. This is **bold**, *italic*, and [link](https://example.com).
-    education:
-      - institution: Princeton University
-        area: Computer Science
-        degree: PhD
-        date:
-        start_date: 2018-09
-        end_date: 2023-05
-        location: Princeton, NJ
-        summary:
+    个人总结:
+      - 具备AI应用与后端工程背景，专注大语言模型（LLM）与Agent系统的工程化落地
+      - 有多Agent系统设计与实践经验，能够完成从任务拆解、工具调用到执行调度的完整链路设计
+      - 熟悉RAG系统构建与优化，具备检索策略、上下文管理与生成质量提升经验
+      - 具备企业级AI系统开发经验（Cisco相关项目），能够在真实业务场景中推动AI能力落地
+      - 熟悉Python（Flask/FastAPI）与Vue3，具备完整的系统开发、部署与迭代能力
+      - 在校期间多次以第一作者身份获得校级、省级及国家级竞赛奖项
+
+
+    技能:
+      - label: 编程语言
+        details: Python, Go, JavaScript
+      - label: 后端技术
+        details: FastAPI, Flask, Gin, RESTful API
+      - label: 前端技术
+        details: Vue3
+      - label: AI / LLM
+        details: RAG、Agent系统、Prompt Engineering、Function Calling
+      - label: 数据与系统
+        details: Redis, Pandas, Scrapy, Trino, Apache Pinot
+      - label: 工程能力
+        details: Docker, Nginx, Gunicorn, 自动化测试（Playwright）
+
+    工作经历:
+
+      - company: 安徽网新恒天软件有限公司（Cisco合作项目）
+        position: AI工程师 / 智能体工程师
+        start_date: 2025-08
+        end_date: present
+        location: 中国·合肥
         highlights:
-          - 'Thesis: Efficient Neural Architecture Search for Resource-Constrained Deployment'
-          - 'Advisor: Prof. Sanjeev Arora'
-          - NSF Graduate Research Fellowship, Siebel Scholar (Class of 2022)
-      - institution: Boğaziçi University
-        area: Computer Engineering
-        degree: BS
-        date:
-        start_date: 2014-09
-        end_date: 2018-06
-        location: Istanbul, Türkiye
-        summary:
+          - 设计并实现多智能体系统（Agentic AI），用于企业多业务流程自动化处理，支持任务拆解、工具调用与执行调度
+          - 基于ReAct + Planner机制构建任务规划能力，实现复杂任务的分步执行与动态决策
+          - 构建智能体记忆体系（上下文记忆 + 长期知识存储），提升多轮任务处理一致性
+          - 设计统一工具调用平台（基于MCP思想），实现数据库/API等多数据源标准化接入
+          - 推动告警分析等业务流程自动化，提升分析效率与准确性
+
+      - company: 安徽智舟信息技术有限公司
+        position: 算法工程师
+        start_date: 2024-09
+        end_date: 2025-08
+        location: 中国·合肥
         highlights:
-          - 'GPA: 3.97/4.00, Valedictorian'
-          - Fulbright Scholarship recipient for Graduate Studies
-    experience:
-      - company: Nexus AI
-        position: Co-Founder & CTO
-        date:
+          - 主导AI智能体平台从0到1建设，支持RAG问答、多轮对话与工具调用能力
+          - 构建知识增强问答系统，提升复杂业务场景下的信息获取效率
+          - 实现Function Calling机制与工具链调用能力
+          - 开发Text2Chart能力，实现文本到可视化分析结果的自动生成
+          - 设计可视化流程编排系统（低代码AI）
+
+      - company: 合肥图迅电子科技有限公司
+        position: 全栈研发工程师
         start_date: 2023-06
+        end_date: 2024-08
+        location: 中国·合肥
+        highlights:
+            - 负责AI训练平台开发（Flask + Vue3），覆盖数据处理、训练与评估流程
+            - 构建自动化测试体系（Playwright），提升系统稳定性
+            - 基于Docker完成部署与运维
+
+      - company: 安徽经典市场调查咨询有限公司
+        position: 数据开发工程师
+        start_date: 2021-07
+        end_date: 2023-06
+        location: 中国·合肥
+        highlights:
+          - 负责数据采集与处理（Scrapy / Pandas），支撑业务分析
+          - 开发数据工具与Web系统，提升数据处理效率
+
+      - company: 科大讯飞股份有限公司
+        position: 大数据工程师实习生
+        start_date: 2020-06
+        end_date: 2021-03
+        location: 中国·合肥
+        highlights:
+          - 参与AI与大数据相关项目开发
+          - 优化ML / NLP / CV项目代码与文档结构
+
+    项目经历:
+    
+      - name: 企业级AI工具调用平台（MCP系统）
+        start_date: 2025-08
+        end_date: 2026-04
+        summary: at in Cisco
+        highlights:
+          - 设计统一工具抽象层，将数据库/API能力封装为标准化Tool供Agent调用
+          - 基于Trino + Apache Pinot构建数据查询能力，支持大规模数据分析
+          - 设计工具调用流程，解决多工具组合调用与结果传递问题
+          - 提供CLI与API接口，提升系统接入效率
+
+      - name: 智能Insights生成系统
+        start_date: 2025-08
         end_date: present
-        location: San Francisco, CA
-        summary:
+        summary: at in Cisco
         highlights:
-          - Built foundation model infrastructure serving 2M+ monthly API requests with 99.97% uptime
-          - Raised $18M Series A led by Sequoia Capital, with participation from a16z and Founders Fund
-          - Scaled engineering team from 3 to 28 across ML research, platform, and applied AI divisions
-          - Developed proprietary inference optimization reducing latency by 73% compared to baseline
-      - company: NVIDIA Research
-        position: Research Intern
-        date:
-        start_date: 2022-05
-        end_date: 2022-08
-        location: Santa Clara, CA
-        summary:
+          - 构建告警数据处理与分析流程，实现自动化分析与报告生成
+          - 基于LLM生成结构化Insights，减少人工分析成本
+          - 提供API接口支持业务系统集成
+
+      - name: CA数据分析智能体
+        start_date: 2025-08
+        end_date: 2026-04
+        summary: at in Cisco
         highlights:
-          - Designed sparse attention mechanism reducing transformer memory footprint by 4.2x
-          - Co-authored paper accepted at NeurIPS 2022 (spotlight presentation, top 5% of submissions)
-      - company: Google DeepMind
-        position: Research Intern
-        date:
-        start_date: 2021-05
-        end_date: 2021-08
-        location: London, UK
-        summary:
+          - 构建自动化分析流程，生成Analysis / Summary / Suggest报告
+          - 基于MCP工具实现数据驱动分析能力
+          - 支持多维度分析（组织 / 队列 / 通话）
+          - 聚焦核心指标（等待时长、放弃率、拒接数）进行优化分析
+
+      - name: AI智能体平台
+        start_date: 2024-09
+        end_date: 2025-08
+        summary: at in Zhizhou
         highlights:
-          - Developed reinforcement learning algorithms for multi-agent coordination
-          - Published research at top-tier venues with significant academic impact
-            - ICML 2022 main conference paper, cited 340+ times within two years
-            - NeurIPS 2022 workshop paper on emergent communication protocols
-            - Invited journal extension in JMLR (2023)
-      - company: Apple ML Research
-        position: Research Intern
-        date:
-        start_date: 2020-05
-        end_date: 2020-08
-        location: Cupertino, CA
-        summary:
+          - 构建RAG问答系统
+          - 实现多轮对话与记忆机制
+          - 支持Function Calling工具调用
+          - 提供可视化流程编排能力
+          - 实现Text2Chart功能
+
+      - name: AI训练平台
+        start_date: 2023-06
+        end_date: 2024-07
+        summary: at in Tuxun
         highlights:
-          - Created on-device neural network compression pipeline deployed across 50M+ devices
-          - Filed 2 patents on efficient model quantization techniques for edge inference
-      - company: Microsoft Research
-        position: Research Intern
-        date:
-        start_date: 2019-05
-        end_date: 2019-08
-        location: Redmond, WA
-        summary:
+          - 基于Flask + Vue3实现全栈开发
+          - 构建自动化测试体系
+          - 完成数据预处理与模型训练以及评估功能开发
+          - 使用Docker进行部署与运维
+
+    教育经历:
+      - institution: 安徽信息工程学院
+        degree: 本科
+        area: 计算机科学与技术
+        start_date: 2017-09
+        end_date: 2021-06
+        location: 中国·芜湖
         highlights:
-          - Implemented novel self-supervised learning framework for low-resource language modeling
-          - Research integrated into Azure Cognitive Services, reducing training data requirements by 60%
-    projects:
-      - name: '[FlashInfer](https://github.com/)'
-        date:
-        start_date: 2023-01
-        end_date: present
-        location:
-        summary: Open-source library for high-performance LLM inference kernels
-        highlights:
-          - Achieved 2.8x speedup over baseline attention implementations on A100 GPUs
-          - Adopted by 3 major AI labs, 8,500+ GitHub stars, 200+ contributors
-      - name: '[NeuralPrune](https://github.com/)'
-        date: '2021'
-        start_date:
-        end_date:
-        location:
-        summary: Automated neural network pruning toolkit with differentiable masks
-        highlights:
-          - Reduced model size by 90% with less than 1% accuracy degradation on ImageNet
-          - Featured in PyTorch ecosystem tools, 4,200+ GitHub stars
-    publications:
-      - title: 'Sparse Mixture-of-Experts at Scale: Efficient Routing for Trillion-Parameter Models'
-        authors:
-          - '*John Doe*'
-          - Sarah Williams
-          - David Park
-        summary:
-        doi: 10.1234/neurips.2023.1234
-        url:
-        journal: NeurIPS 2023
-        date: 2023-07
-      - title: Neural Architecture Search via Differentiable Pruning
-        authors:
-          - James Liu
-          - '*John Doe*'
-        summary:
-        doi: 10.1234/neurips.2022.5678
-        url:
-        journal: NeurIPS 2022, Spotlight
-        date: 2022-12
-      - title: Multi-Agent Reinforcement Learning with Emergent Communication
-        authors:
-          - Maria Garcia
-          - '*John Doe*'
-          - Tom Anderson
-        summary:
-        doi: 10.1234/icml.2022.9012
-        url:
-        journal: ICML 2022
-        date: 2022-07
-      - title: On-Device Model Compression via Learned Quantization
-        authors:
-          - '*John Doe*'
-          - Kevin Wu
-        summary:
-        doi: 10.1234/iclr.2021.3456
-        url:
-        journal: ICLR 2021, Best Paper Award
-        date: 2021-05
-    selected_honors:
-      - bullet: MIT Technology Review 35 Under 35 Innovators (2024)
-      - bullet: Forbes 30 Under 30 in Enterprise Technology (2024)
-      - bullet: ACM Doctoral Dissertation Award Honorable Mention (2023)
-      - bullet: Google PhD Fellowship in Machine Learning (2020 – 2023)
-      - bullet: Fulbright Scholarship for Graduate Studies (2018)
-    skills:
-      - label: Languages
-        details: Python, C++, CUDA, Rust, Julia
-      - label: ML Frameworks
-        details: PyTorch, JAX, TensorFlow, Triton, ONNX
-      - label: Infrastructure
-        details: Kubernetes, Ray, distributed training, AWS, GCP
-      - label: Research Areas
-        details: Neural architecture search, model compression, efficient inference, multi-agent RL
-    patents:
-      - number: Adaptive Quantization for Neural Network Inference on Edge Devices (US Patent 11,234,567)
-      - number: Dynamic Sparsity Patterns for Efficient Transformer Attention (US Patent 11,345,678)
-      - number: Hardware-Aware Neural Architecture Search Method (US Patent 11,456,789)
-    invited_talks:
-      - reversed_number: Scaling Laws for Efficient Inference — Stanford HAI Symposium (2024)
-      - reversed_number: Building AI Infrastructure for the Next Decade — TechCrunch Disrupt (2024)
-      - reversed_number: 'From Research to Production: Lessons in ML Systems — NeurIPS Workshop (2023)'
-      - reversed_number: "Efficient Deep Learning: A Practitioner's Perspective — Google Tech Talk (2022)"
+          - 多次以第一作者身份获得校级、省级及国家级竞赛奖项
+
 design:
-  theme: classic
-  # page:
-  #   size: us-letter
-  #   top_margin: 0.7in
-  #   bottom_margin: 0.7in
-  #   left_margin: 0.7in
-  #   right_margin: 0.7in
-  #   show_footer: true
-  #   show_top_note: true
-  # colors:
-  #   body: rgb(0, 0, 0)
-  #   name: rgb(0, 79, 144)
-  #   headline: rgb(0, 79, 144)
-  #   connections: rgb(0, 79, 144)
-  #   section_titles: rgb(0, 79, 144)
-  #   links: rgb(0, 79, 144)
-  #   footer: rgb(128, 128, 128)
-  #   top_note: rgb(128, 128, 128)
-  # typography:
-  #   line_spacing: 0.6em
-  #   alignment: justified
-  #   date_and_location_column_alignment: right
-  #   font_family:
-  #     body: Source Sans 3
-  #     name: Source Sans 3
-  #     headline: Source Sans 3
-  #     connections: Source Sans 3
-  #     section_titles: Source Sans 3
-  #   font_size:
-  #     body: 10pt
-  #     name: 30pt
-  #     headline: 10pt
-  #     connections: 10pt
-  #     section_titles: 1.4em
-  #   small_caps:
-  #     name: false
-  #     headline: false
-  #     connections: false
-  #     section_titles: false
-  #   bold:
-  #     name: true
-  #     headline: false
-  #     connections: false
-  #     section_titles: true
-  # links:
-  #   underline: false
-  #   show_external_link_icon: false
-  # header:
-  #   alignment: center
-  #   photo_width: 3.5cm
-  #   photo_position: left
-  #   photo_space_left: 0.4cm
-  #   photo_space_right: 0.4cm
-  #   space_below_name: 0.7cm
-  #   space_below_headline: 0.7cm
-  #   space_below_connections: 0.7cm
-  #   connections:
-  #     phone_number_format: national
-  #     hyperlink: true
-  #     show_icons: true
-  #     display_urls_instead_of_usernames: false
-  #     separator: ''
-  #     space_between_connections: 0.5cm
-  # section_titles:
-  #   type: with_partial_line
-  #   line_thickness: 0.5pt
-  #   space_above: 0.5cm
-  #   space_below: 0.3cm
-  # sections:
-  #   allow_page_break: true
-  #   space_between_regular_entries: 1.2em
-  #   space_between_text_based_entries: 0.3em
-  #   show_time_spans_in:
-  #     - experience
-  # entries:
-  #   date_and_location_width: 4.15cm
-  #   side_space: 0.2cm
-  #   space_between_columns: 0.1cm
-  #   allow_page_break: false
-  #   short_second_row: true
-  #   degree_width: 1cm
-  #   summary:
-  #     space_above: 0cm
-  #     space_left: 0cm
-  #   highlights:
-  #     bullet: •
-  #     nested_bullet: •
-  #     space_left: 0.15cm
-  #     space_above: 0cm
-  #     space_between_items: 0cm
-  #     space_between_bullet_and_text: 0.5em
-  # templates:
-  #   footer: '*NAME -- PAGE_NUMBER/TOTAL_PAGES*'
-  #   top_note: '*LAST_UPDATED CURRENT_DATE*'
-  #   single_date: MONTH_ABBREVIATION YEAR
-  #   date_range: START_DATE – END_DATE
-  #   time_span: HOW_MANY_YEARS YEARS HOW_MANY_MONTHS MONTHS
-  #   one_line_entry:
-  #     main_column: '**LABEL:** DETAILS'
-  #   education_entry:
-  #     main_column: |-
-  #       **INSTITUTION**, AREA
-  #       SUMMARY
-  #       HIGHLIGHTS
-  #     degree_column: '**DEGREE**'
-  #     date_and_location_column: |-
-  #       LOCATION
-  #       DATE
-  #   normal_entry:
-  #     main_column: |-
-  #       **NAME**
-  #       SUMMARY
-  #       HIGHLIGHTS
-  #     date_and_location_column: |-
-  #       LOCATION
-  #       DATE
-  #   experience_entry:
-  #     main_column: |-
-  #       **COMPANY**, POSITION
-  #       SUMMARY
-  #       HIGHLIGHTS
-  #     date_and_location_column: |-
-  #       LOCATION
-  #       DATE
-  #   publication_entry:
-  #     main_column: |-
-  #       **TITLE**
-  #       SUMMARY
-  #       AUTHORS
-  #       URL (JOURNAL)
-  #     date_and_location_column: DATE
+  # theme: engineeringresumes
+  theme: harvard
+  # theme: ink
+  # theme: sb2nov
+  # theme: ember
+
 locale:
   language: mandarin_chinese
-  # last_updated: 最后更新于
-  # month: 个月
-  # months: 个月
-  # year: 年
-  # years: 年
-  # present: 至今
-  # phrases:
-  #   degree_with_area: AREA DEGREE
-  # month_abbreviations:
-  #   - 1月
-  #   - 2月
-  #   - 3月
-  #   - 4月
-  #   - 5月
-  #   - 6月
-  #   - 7月
-  #   - 8月
-  #   - 9月
-  #   - 10月
-  #   - 11月
-  #   - 12月
-  # month_names:
-  #   - 一月
-  #   - 二月
-  #   - 三月
-  #   - 四月
-  #   - 五月
-  #   - 六月
-  #   - 七月
-  #   - 八月
-  #   - 九月
-  #   - 十月
-  #   - 十一月
-  #   - 十二月
+
 settings:
   current_date: today
   render_command:
     output_folder: rendercv_output
-    design:
-    locale:
     typst_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.typ
     pdf_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.pdf
     markdown_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.md
@@ -366,4 +174,4 @@ settings:
     dont_generate_pdf: false
     dont_generate_png: false
   bold_keywords: []
-  pdf_title: NAME - CV
+  pdf_title: 钱甫新 - 简历
