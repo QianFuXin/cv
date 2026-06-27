@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RenderCV Studio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- CodeMirror 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.css">
+
+    <style>
+        /* ================================================================
+   RESET & VARIABLES
+   ================================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg-0: #080a10;
+            --bg-1: #0f1118;
+            --bg-2: #161923;
+            --bg-3: #1e2230;
+            --bg-4: #272b3b;
+            --border: #2a2e40;
+            --border-l: #363b50;
+            --accent: #d4932a;
+            --accent-h: #e8a838;
+            --accent-dim: rgba(212, 147, 42, .12);
+            --text-1: #e4e6ec;
+            --text-2: #9599ad;
+            --text-3: #5c6078;
+            --green: #34d399;
+            --red: #f87171;
+            --yellow: #fbbf24;
+            --radius: 8px;
+            --radius-lg: 14px;
+            --font-d: 'DM Serif Display', serif;
+            --font-s: 'Outfit', sans-serif;
+            --font-m: 'JetBrains Mono', 'Fira Code', monospace;
+            --shadow-lg: 0 24px 80px rgba(0, 0, 0, .6);
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-0);
+            color: var(--text-1);
+            font-family: var(--font-s);
+            font-size: 14px;
+            line-height: 1.5
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh
+        }
+
+        /* ================================================================
+   HEADER
+   ================================================================ */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 54px;
+            background: var(--bg-1);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            z-index: 10
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-m);
+            font-weight: 700;
+            font-size: 11px;
+            color: var(--bg-0);
+            letter-spacing: -.5px
+        }
+
+        .brand-name {
+            font-family: var(--font-d);
+            font-size: 19px;
+            letter-spacing: -.02em
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px
+        }
+
+        /* ================================================================
+   BUTTONS
+   ================================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 18px;
+            border: none;
+            border-radius: var(--radius);
+            font-family: var(--font-s);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s ease;
+            outline: none;
+            white-space: nowrap
+        }
+
+        .btn svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0
+        }
+
+        .btn:disabled {
+            opacity: .45;
+            cursor: not-allowed
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-2);
+            border: 1px solid var(--border)
+        }
+
+        .btn-ghost:hover:not(:disabled) {
+            color: var(--text-1);
+            border-color: var(--border-l);
+            background: var(--bg-3)
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-0);
+            font-weight: 600
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--accent-h)
+        }
+
+        .btn-ai {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid rgba(168, 85, 247, .3);
+            position: relative;
+            overflow: hidden
+        }
+
+        .btn-ai:hover:not(:disabled) {
+            filter: brightness(1.12);
+            box-shadow: 0 0 20px rgba(168, 85, 247, .3)
+        }
+
+        .btn-ai::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255, 255, 255, .1), transparent 30%);
+            animation: aiShine 3s linear infinite
+        }
+
+        @keyframes aiShine {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .btn-sm {
+            padding: 5px 14px;
+            font-size: 12px
+        }
+
+        .btn-icon {
+            padding: 6px;
+            background: transparent;
+            color: var(--text-2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .btn-icon:hover {
+            color: var(--text-1);
+            border-color: var(--border-l);
+            background: var(--bg-3)
+        }
+
+        /* ================================================================
+   WORKSPACE
+   ================================================================ */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden
+        }
+
+        .pane {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .editor-pane {
+            width: 48%;
+            min-width: 280px;
+            background: var(--bg-1)
+        }
+
+        .preview-pane {
+            flex: 1;
+            min-width: 280px;
+            background: var(--bg-0)
+        }
+
+        .pane-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            height: 38px;
+            background: var(--bg-2);
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            flex-shrink: 0
+        }
+
+        .lint-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            text-transform: none;
+            letter-spacing: 0
+        }
+
+        .lint-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-3);
+            transition: background .3s
+        }
+
+        .lint-dot.ok {
+            background: var(--green)
+        }
+
+        .lint-dot.err {
+            background: var(--red)
+        }
+
+        /* GUTTER */
+        .gutter {
+            width: 5px;
+            background: var(--border);
+            cursor: col-resize;
+            flex-shrink: 0;
+            transition: background .15s;
+            position: relative
+        }
+
+        .gutter::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3px;
+            height: 32px;
+            border-radius: 2px;
+            background: var(--text-3);
+            opacity: 0;
+            transition: opacity .15s
+        }
+
+        .gutter:hover {
+            background: var(--accent)
+        }
+
+        .gutter:hover::after,
+        .gutter.dragging::after {
+            opacity: .5
+        }
+
+        /* ================================================================
+   CODEMIRROR OVERRIDES
+   ================================================================ */
+        .editor-body {
+            flex: 1;
+            overflow: hidden
+        }
+
+        .editor-body .CodeMirror {
+            height: 100% !important;
+            font-family: var(--font-m) !important;
+            font-size: 13px !important;
+            line-height: 1.65 !important;
+            background: var(--bg-1) !important;
+            color: var(--text-1) !important
+        }
+
+        .editor-body .CodeMirror-gutters {
+            background: var(--bg-1) !important;
+            border-right: 1px solid var(--border) !important
+        }
+
+        .editor-body .CodeMirror-linenumber {
+            color: var(--text-3) !important;
+            font-size: 12px !important
+        }
+
+        .editor-body .CodeMirror-cursor {
+            border-left-color: var(--accent) !important
+        }
+
+        .editor-body .CodeMirror-selected {
+            background: rgba(212, 147, 42, .12) !important
+        }
+
+        .editor-body .CodeMirror-activeline-background {
+            background: rgba(255, 255, 255, .025) !important
+        }
+
+        .editor-body .CodeMirror-matchingbracket {
+            color: var(--accent) !important;
+            font-weight: 600
+        }
+
+        .cm-s-default .cm-key {
+            color: #7dd3fc !important
+        }
+
+        .cm-s-default .cm-string {
+            color: #86efac !important
+        }
+
+        .cm-s-default .cm-atom {
+            color: #c084fc !important
+        }
+
+        .cm-s-default .cm-number {
+            color: #fb923c !important
+        }
+
+        .cm-s-default .cm-comment {
+            color: var(--text-3) !important
+        }
+
+        .cm-s-default .cm-meta {
+            color: #94a3b8 !important
+        }
+
+        .CodeMirror-lint-mark-error {
+            background: none !important;
+            border-bottom: 2px wavy var(--red) !important
+        }
+
+        .CodeMirror-lint-tooltip {
+            background: var(--bg-3) !important;
+            color: var(--text-1) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+            font-family: var(--font-s) !important;
+            font-size: 12px !important;
+            padding: 8px 12px !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5) !important
+        }
+
+        /* ================================================================
+   PREVIEW BODY
+   ================================================================ */
+        .preview-body {
+            flex: 1;
+            position: relative;
+            overflow: hidden
+        }
+
+        .pv-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+            display: none
+        }
+
+        .ph {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--text-3);
+            pointer-events: none
+        }
+
+        .ph svg {
+            width: 48px;
+            height: 48px;
+            opacity: .25
+        }
+
+        .ph p {
+            font-size: 13px
+        }
+
+        .ph kbd {
+            display: inline-block;
+            padding: 1px 6px;
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: var(--font-m);
+            font-size: 11px
+        }
+
+        .pv-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: rgba(8, 10, 16, .75);
+            backdrop-filter: blur(6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s;
+            z-index: 10
+        }
+
+        .pv-loading.show {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin .7s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .pv-loading span {
+            font-size: 13px;
+            color: var(--text-2)
+        }
+
+        .pv-error {
+            position: absolute;
+            inset: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            gap: 12px
+        }
+
+        .pv-error.show {
+            display: flex
+        }
+
+        .pv-error-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--red)
+        }
+
+        .pv-error-msg {
+            font-family: var(--font-m);
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--text-2);
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            max-width: 600px;
+            max-height: 300px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-word
+        }
+
+        /* ================================================================
+   FOOTER
+   ================================================================ */
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            height: 26px;
+            background: var(--bg-2);
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-3);
+            flex-shrink: 0
+        }
+
+        .footer kbd {
+            display: inline-block;
+            padding: 0 5px;
+            background: var(--bg-0);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            font-family: var(--font-m);
+            font-size: 10px;
+            margin: 0 2px
+        }
+
+        .shortcuts {
+            display: flex;
+            gap: 18px
+        }
+
+        /* ================================================================
+   TOAST
+   ================================================================ */
+        .toast-container {
+            position: fixed;
+            top: 66px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .toast {
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
+            animation: toastIn .3s ease;
+            max-width: 360px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .toast.success {
+            background: #065f46;
+            color: #a7f3d0;
+            border: 1px solid #047857
+        }
+
+        .toast.error {
+            background: #7f1d1d;
+            color: #fca5a5;
+            border: 1px solid #991b1b
+        }
+
+        .toast.info {
+            background: #1e3a5f;
+            color: #93c5fd;
+            border: 1px solid #1e40af
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0)
+            }
+        }
+
+        /* ================================================================
+   MODAL OVERLAY
+   ================================================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 5, 10, .7);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .modal {
+            background: var(--bg-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            width: 640px;
+            max-width: 92vw;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px) scale(.97);
+            transition: transform .3s cubic-bezier(.22, 1, .36, 1);
+            overflow: hidden
+        }
+
+        .modal-overlay.show .modal {
+            transform: translateY(0) scale(1)
+        }
+
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        .modal-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600
+        }
+
+        .modal-title .sparkle {
+            width: 20px;
+            height: 20px;
+            color: #a855f7
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        /* instruction input */
+        .field-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-2);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        .field-textarea {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+            padding: 12px 14px;
+            background: var(--bg-0);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-1);
+            font-family: var(--font-s);
+            font-size: 13px;
+            line-height: 1.6;
+            transition: border-color .2s;
+            outline: none
+        }
+
+        .field-textarea:focus {
+            border-color: var(--accent)
+        }
+
+        .field-textarea::placeholder {
+            color: var(--text-3)
+        }
+
+        /* suggestion chips */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .chip {
+            padding: 5px 12px;
+            background: var(--bg-3);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-2);
+            cursor: pointer;
+            transition: all .2s;
+            white-space: nowrap
+        }
+
+        .chip:hover {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            color: var(--accent-h)
+        }
+
+        /* optimize button area */
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-shrink: 0
+        }
+
+        /* result area */
+        .result-area {
+            display: none;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .result-area.show {
+            display: flex
+        }
+
+        .result-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .result-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-2);
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        .result-box {
+            background: var(--bg-0);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            font-family: var(--font-m);
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--text-1);
+            max-height: 340px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            position: relative
+        }
+
+        .result-box:focus {
+            outline: none;
+            border-color: var(--accent)
+        }
+
+        /* streaming cursor */
+        .result-box.streaming::after {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 14px;
+            background: var(--accent);
+            margin-left: 2px;
+            animation: blink .7s step-end infinite;
+            vertical-align: text-bottom
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0
+            }
+        }
+
+        /* modal bottom */
+        .modal-foot {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 14px 20px;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0
+        }
+
+        /* loading inside modal */
+        .modal-loading {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: var(--bg-0);
+            border: 1px solid var(--border);
+            border-radius: var(--radius)
+        }
+
+        .modal-loading.show {
+            display: flex
+        }
+
+        .modal-loading .spinner-sm {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin .7s linear infinite
+        }
+
+        .modal-loading span {
+            font-size: 13px;
+            color: var(--text-2)
+        }
+
+        .elapsed {
+            font-family: var(--font-m);
+            color: var(--text-3);
+            font-size: 12px;
+            margin-left: auto
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- ============ HEADER ============ -->
+        <header class="header">
+            <div class="brand">
+                <div class="brand-icon">CV</div>
+                <div class="brand-name">RenderCV Studio</div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-ai" id="btnAI" title="AI 智能优化">
+                    <svg class="sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z" />
+                    </svg>
+                    智能优化
+                </button>
+                <button class="btn btn-ghost" id="btnPreview" title="Ctrl + Enter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                    </svg>
+                    预览
+                </button>
+            </div>
+        </header>
+
+        <!-- ============ WORKSPACE ============ -->
+        <main class="workspace">
+            <section class="pane editor-pane" id="editorPane">
+                <div class="pane-head">
+                    <span>YAML 编辑器</span>
+                    <span class="lint-badge" id="lintBadge">
+                        <span class="lint-dot ok" id="lintDot"></span>
+                        <span id="lintText">YAML 有效</span>
+                    </span>
+                </div>
+                <div class="editor-body" id="editorBody"></div>
+            </section>
+
+            <div class="gutter" id="gutter"></div>
+
+            <section class="pane preview-pane" id="previewPane">
+                <div class="pane-head"><span>预览</span></div>
+                <div class="preview-body" id="previewBody">
+                    <div class="ph" id="ph">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="16" y1="17" x2="8" y2="17" />
+                            <polyline points="10 9 9 9 8 9" />
+                        </svg>
+                        <p>按 <kbd>Ctrl</kbd>+<kbd>Enter</kbd> 渲染预览</p>
+                    </div>
+                    <iframe id="pvFrame" class="pv-frame"></iframe>
+                    <div class="pv-error" id="pvError">
+                        <div class="pv-error-title">渲染失败</div>
+                        <pre class="pv-error-msg" id="pvErrorMsg"></pre>
+                    </div>
+                    <div class="pv-loading" id="pvLoading">
+                        <div class="spinner"></div>
+                        <span>正在渲染简历...</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ============ FOOTER ============ -->
+        <footer class="footer">
+            <span id="footerMsg">就绪</span>
+            <span class="shortcuts">
+                <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> 预览</span>
+            </span>
+        </footer>
+    </div>
+
+    <!-- ============ AI OPTIMIZE MODAL ============ -->
+    <div class="modal-overlay" id="aiModal">
+        <div class="modal">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <svg class="sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z" />
+                    </svg>
+                    AI 智能优化
+                </div>
+                <button class="btn-icon" id="aiClose" title="关闭">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="16" height="16">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Instruction -->
+                <div>
+                    <div class="field-label">优化需求</div>
+                    <textarea class="field-textarea" id="aiInstruction"
+                        placeholder="描述你希望如何优化简历，例如：&#10;- 帮我润色工作经历的描述，使其更加量化和专业&#10;- 增加一段 Python 和机器学习相关的项目经历&#10;- 优化技能分类，按领域分组展示"></textarea>
+                </div>
+
+                <!-- Suggestion chips -->
+                <div class="chips" id="aiChips">
+                    <span class="chip" data-text="帮我优化工作经历描述，用 STAR 法则重写，突出量化成果">优化工作描述</span>
+                    <span class="chip" data-text="帮我添加一段与大模型/LLM应用开发相关的项目经历">添加项目经历</span>
+                    <span class="chip" data-text="优化技能清单，按编程语言、框架、工具等类别分组">整理技能分类</span>
+                    <span class="chip" data-text="润色所有文字内容，使其更加简洁专业，适合海外求职">润色英文表达</span>
+                    <span class="chip" data-text="帮我精简简历，删除重复或弱相关内容，控制在一页以内">精简内容</span>
+                    <span class="chip" data-text="添加一段教育背景，学校为MIT，专业为计算机科学，2020-2024">添加教育经历</span>
+                </div>
+
+                <!-- Loading -->
+                <div class="modal-loading" id="aiLoading">
+                    <div class="spinner-sm"></div>
+                    <span>AI 正在优化中...</span>
+                    <span class="elapsed" id="aiElapsed">0s</span>
+                </div>
+
+                <!-- Result -->
+                <div class="result-area" id="aiResultArea">
+                    <div class="result-head">
+                        <span class="result-label">优化结果</span>
+                        <button class="btn btn-ghost btn-sm" id="aiCopy" title="复制到剪贴板">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" width="13" height="13">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                            复制
+                        </button>
+                    </div>
+                    <div class="result-box streaming" id="aiResultBox"></div>
+                </div>
+            </div>
+
+            <div class="modal-foot">
+                <button class="btn btn-ghost" id="aiCancel">取消</button>
+                <button class="btn btn-ai" id="aiOptimize">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="14" height="14">
+                        <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z" />
+                    </svg>
+                    开始优化
+                </button>
+                <button class="btn btn-primary" id="aiApply" style="display:none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="14" height="14">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    应用到编辑器
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOAST CONTAINER ============ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== External Scripts ===== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/yaml/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            /* ================================================================
+               DEFAULT YAML
+               ================================================================ */
+            var DEFAULT_YAML = [
+                'cv:',
+                '  name: John Doe',
+                '  location: San Francisco, CA',
+                '  email: john.doe@email.com',
+                '  website: https://johndoe.dev',
+                '  social_networks:',
+                '    - network: LinkedIn',
+                '      username: johndoe',
+                '    - network: GitHub',
+                '      username: johndoe',
+                '  sections:',
+                '    education:',
+                '      - institution: Stanford University',
+                '        area: Computer Science',
+                '        degree: PhD',
+                '        start_date: 2019-09',
+                '        end_date: 2024-06',
+                '        location: Stanford, CA',
+                '        highlights:',
+                '          - "Thesis: Efficient Neural Architecture Search for Edge Devices"',
+                '          - "Advisor: Prof. Christopher Manning"',
+                '          - "NSF Graduate Research Fellowship"',
+                '    experience:',
+                '      - company: Google',
+                '        position: Senior Research Scientist',
+                '        start_date: 2024-07',
+                '        end_date: present',
+                '        location: Mountain View, CA',
+                '        highlights:',
+                '          - "Leading efficient LLM deployment research"',
+                '          - "Published 3 papers at NeurIPS and ICML"',
+                '      - company: Meta AI',
+                '        position: Research Intern',
+                '        start_date: 2023-06',
+                '        end_date: 2023-09',
+                '        location: New York, NY',
+                '        highlights:',
+                '          - "Developed model compression techniques achieving 4x size reduction"',
+                '          - "Awarded return offer for outstanding performance"',
+                '    skills:',
+                '      - "Languages: Python, C++, Rust, Go"',
+                '      - "ML: PyTorch, JAX, TensorFlow, Hugging Face"',
+                '      - "Tools: Docker, Kubernetes, Git, CI/CD"',
+                '    awards:',
+                '      - "Best Paper Award, ICML Workshop on Efficient ML, 2024"',
+                '      - "Google PhD Fellowship in Machine Learning, 2022"',
+                'design:',
+                '  theme: classic',
+                '  page:',
+                '    size: us-letter',
+                '    top_margin: 0.7in',
+                '    bottom_margin: 0.7in',
+                '    left_margin: 0.7in',
+                '    right_margin: 0.7in',
+            ].join('\n');
+
+            /* ================================================================
+               YAML LINT
+               ================================================================ */
+            CodeMirror.registerHelper('lint', 'yaml', function (text) {
+                var errors = [];
+                try { jsyaml.load(text); }
+                catch (e) {
+                    errors.push({
+                        from: e.mark ? CodeMirror.Pos(e.mark.line, e.mark.column) : CodeMirror.Pos(0, 0),
+                        to: e.mark ? CodeMirror.Pos(e.mark.line, e.mark.column + 1) : CodeMirror.Pos(0, 1),
+                        message: e.message
+                    });
+                }
+                return errors;
+            });
+
+            /* ================================================================
+               EDITOR
+               ================================================================ */
+            var saved = localStorage.getItem('rendercv_yaml');
+            var editor = CodeMirror(document.getElementById('editorBody'), {
+                value: saved !== null ? saved : DEFAULT_YAML,
+                mode: 'yaml', theme: 'default', lineNumbers: true,
+                styleActiveLine: true, matchBrackets: true,
+                gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers'],
+                lint: { lintOnChange: true },
+                tabSize: 2, indentWithTabs: false, lineWrapping: true, viewportMargin: Infinity
+            });
+
+            var saveTimer = null;
+            editor.on('change', function () {
+                clearTimeout(saveTimer);
+                saveTimer = setTimeout(function () { localStorage.setItem('rendercv_yaml', editor.getValue()); }, 500);
+                updateLintBadge();
+            });
+
+            function updateLintBadge() {
+                var dot = document.getElementById('lintDot');
+                var text = document.getElementById('lintText');
+                var errs = CodeMirror.lint.yaml(editor.getValue());
+                dot.className = errs.length ? 'lint-dot err' : 'lint-dot ok';
+                text.textContent = errs.length ? (errs.length + ' 个错误') : 'YAML 有效';
+            }
+            updateLintBadge();
+
+            /* ================================================================
+               HELPERS
+               ================================================================ */
+            function $(id) { return document.getElementById(id); }
+            function setPreviewState(s) {
+                $('ph').style.display = s === 'ph' ? 'flex' : 'none';
+                $('pvFrame').style.display = s === 'preview' ? 'block' : 'none';
+                $('pvError').classList.toggle('show', s === 'error');
+                $('pvLoading').classList.toggle('show', s === 'loading');
+            }
+            function setFooter(m) { $('footerMsg').textContent = m; }
+            function setLoading(on) { $('btnPreview').disabled = on; }
+
+            /* Toast */
+            function toast(msg, type) {
+                type = type || 'info';
+                var el = document.createElement('div');
+                el.className = 'toast ' + type;
+                el.textContent = msg;
+                $('toastContainer').appendChild(el);
+                setTimeout(function () { el.style.opacity = '0'; el.style.transition = 'opacity .3s'; setTimeout(function () { el.remove(); }, 300); }, 3500);
+            }
+
+            /* ================================================================
+               PREVIEW
+               ================================================================ */
+            async function doPreview() {
+                var yaml = editor.getValue().trim();
+                if (!yaml) { setFooter('YAML 内容为空'); return; }
+                setPreviewState('loading'); setLoading(true); setFooter('正在渲染...');
+                try {
+                    var resp = await fetch('/api/preview', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ yaml: yaml }) });
+                    var data = await resp.json();
+                    if (!data.success) { setPreviewState('error'); $('pvErrorMsg').textContent = data.error || '未知错误'; setFooter('渲染失败'); return; }
+                    var bytes = atob(data.content); var arr = new Uint8Array(bytes.length);
+                    for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+                    var blob = new Blob([arr], { type: 'application/pdf' });
+                    var old = $('pvFrame').src; $('pvFrame').src = URL.createObjectURL(blob);
+                    if (old && old.startsWith('blob:')) URL.revokeObjectURL(old);
+                    setPreviewState('preview'); setFooter('预览渲染完成');
+                } catch (e) { setPreviewState('error'); $('pvErrorMsg').textContent = e.message; setFooter('网络错误'); }
+                finally { setLoading(false); }
+            }
+
+            $('btnPreview').addEventListener('click', doPreview);
+
+            document.addEventListener('keydown', function (e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault(); doPreview();
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault(); localStorage.setItem('rendercv_yaml', editor.getValue()); setFooter('已保存');
+                }
+            });
+
+            /* ================================================================
+               RESIZABLE GUTTER
+               ================================================================ */
+            (function () {
+                var g = $('gutter'), ep = $('editorPane'), ws = g.parentElement, drag = false;
+                g.addEventListener('mousedown', function (e) {
+                    e.preventDefault(); drag = true; g.classList.add('dragging');
+                    document.body.style.cursor = 'col-resize'; document.body.style.userSelect = 'none';
+                });
+                document.addEventListener('mousemove', function (e) {
+                    if (!drag) return;
+                    var r = ws.getBoundingClientRect(); var p = ((e.clientX - r.left) / r.width) * 100;
+                    p = Math.max(20, Math.min(80, p)); ep.style.width = p + '%'; editor.refresh();
+                });
+                document.addEventListener('mouseup', function () {
+                    if (!drag) return; drag = false;
+                    g.classList.remove('dragging'); document.body.style.cursor = ''; document.body.style.userSelect = ''; editor.refresh();
+                });
+            })();
+
+            /* ================================================================
+               AI OPTIMIZE MODAL
+               ================================================================ */
+            var aiModal = $('aiModal');
+            var aiInstruction = $('aiInstruction');
+            var aiLoading = $('aiLoading');
+            var aiElapsed = $('aiElapsed');
+            var aiResultArea = $('aiResultArea');
+            var aiResultBox = $('aiResultBox');
+            var aiOptimizeBtn = $('aiOptimize');
+            var aiApplyBtn = $('aiApply');
+            var aiCancelBtn = $('aiCancel');
+            var aiCloseBtn = $('aiClose');
+            var aiCopyBtn = $('aiCopy');
+            var aiChips = $('aiChips');
+
+            var aiAbortCtrl = null;
+            var aiResultYaml = '';
+            var elapsedTimer = null;
+
+            /* Open / Close */
+            function openModal() {
+                aiModal.classList.add('show');
+                aiResultArea.classList.remove('show');
+                aiResultBox.textContent = '';
+                aiResultYaml = '';
+                aiApplyBtn.style.display = 'none';
+                aiOptimizeBtn.style.display = '';
+                aiLoading.classList.remove('show');
+                setTimeout(function () { aiInstruction.focus(); }, 100);
+            }
+            function closeModal() {
+                aiModal.classList.remove('show');
+                if (aiAbortCtrl) { aiAbortCtrl.abort(); aiAbortCtrl = null; }
+                clearInterval(elapsedTimer);
+            }
+
+            $('btnAI').addEventListener('click', openModal);
+            aiCloseBtn.addEventListener('click', closeModal);
+            aiCancelBtn.addEventListener('click', closeModal);
+            aiModal.addEventListener('click', function (e) { if (e.target === aiModal) closeModal(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && aiModal.classList.contains('show')) closeModal(); });
+
+            /* Suggestion chips */
+            aiChips.addEventListener('click', function (e) {
+                var chip = e.target.closest('.chip');
+                if (!chip) return;
+                aiInstruction.value = chip.getAttribute('data-text');
+                aiInstruction.focus();
+            });
+
+            /* Copy result */
+            aiCopyBtn.addEventListener('click', function () {
+                if (!aiResultYaml) return;
+                navigator.clipboard.writeText(aiResultYaml).then(function () {
+                    toast('已复制到剪贴板', 'success');
+                }).catch(function () {
+                    toast('复制失败', 'error');
+                });
+            });
+
+            aiApplyBtn.addEventListener('click', function () {
+                if (!aiResultYaml) return;
+                var cleaned = cleanYamlFences(aiResultYaml);
+                try {
+                    jsyaml.load(cleaned);
+                    editor.setValue(cleaned);
+                    closeModal();
+                    toast('已应用优化结果到编辑器', 'success');
+                    setFooter('AI optimized');
+                } catch (e) {
+                    if (confirm('返回的 YAML 存在语法问题，是否仍然应用？\n\n错误: ' + e.message)) {
+                        editor.setValue(cleaned);
+                        closeModal();
+                        toast('已强制应用（可能存在语法问题）', 'info');
+                    }
+                }
+            });
+
+            function cleanYamlFences(text) {
+                text = text.trim();
+                text = text.replace(/^```(?:yaml|yml)?\s*\n?/i, '');
+                text = text.replace(/\n?```\s*$/i, '');
+                return text.trim();
+            }
+
+            /* ================================================================
+               AI OPTIMIZE — MAIN LOGIC (SSE Streaming)
+               ================================================================ */
+            aiOptimizeBtn.addEventListener('click', doOptimize);
+
+            /* Ctrl+Enter inside modal to optimize */
+            aiInstruction.addEventListener('keydown', function (e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!aiLoading.classList.contains('show')) doOptimize();
+                }
+            });
+
+            async function doOptimize() {
+                var instruction = aiInstruction.value.trim();
+                if (!instruction) { toast('请输入优化需求', 'error'); aiInstruction.focus(); return; }
+
+                var yamlText = editor.getValue().trim();
+                if (!yamlText) { toast('编辑器内容为空', 'error'); return; }
+
+                /* UI state: loading */
+                aiLoading.classList.add('show');
+                aiResultArea.classList.add('show');
+                aiResultBox.classList.add('streaming');
+                aiResultBox.textContent = '';
+                aiResultYaml = '';
+                aiApplyBtn.style.display = 'none';
+                aiOptimizeBtn.disabled = true;
+
+                /* elapsed timer */
+                var secs = 0;
+                aiElapsed.textContent = '0s';
+                elapsedTimer = setInterval(function () { secs++; aiElapsed.textContent = secs + 's'; }, 1000);
+
+                /* abort controller */
+                aiAbortCtrl = new AbortController();
+
+                try {
+                    var resp = await fetch('/api/optimize', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ yaml: yamlText, instruction: instruction }),
+                        signal: aiAbortCtrl.signal
+                    });
+
+                    if (!resp.ok) {
+                        var errData;
+                        try { errData = await resp.json(); } catch (e) { }
+                        throw new Error((errData && errData.error) || ('HTTP ' + resp.status));
+                    }
+
+                    var reader = resp.body.getReader();
+                    var decoder = new TextDecoder();
+                    var buffer = '';
+
+                    while (true) {
+                        var chunk = await reader.read();
+                        if (chunk.done) break;
+
+                        buffer += decoder.decode(chunk.value, { stream: true });
+                        var parts = buffer.split('\n\n');
+                        buffer = parts.pop(); // keep incomplete
+
+                        for (var i = 0; i < parts.length; i++) {
+                            var line = parts[i].trim();
+                            if (!line.startsWith('data: ')) continue;
+                            var payload;
+                            try { payload = JSON.parse(line.slice(6)); } catch (e) { continue; }
+
+                            if (payload.error) {
+                                throw new Error(payload.error);
+                            }
+                            if (payload.content) {
+                                aiResultYaml += payload.content;
+                                aiResultBox.textContent = aiResultYaml;
+                                /* auto scroll to bottom */
+                                aiResultBox.scrollTop = aiResultBox.scrollHeight;
+                            }
+                            if (payload.done) {
+                                /* streaming complete */
+                            }
+                        }
+                    }
+
+                    /* Done! */
+                    aiResultBox.classList.remove('streaming');
+                    aiApplyBtn.style.display = '';
+                    toast('优化完成', 'success');
+                    setFooter('AI 优化完成');
+
+                } catch (e) {
+                    if (e.name === 'AbortError') {
+                        toast('已取消', 'info');
+                    } else {
+                        aiResultBox.textContent = '错误: ' + e.message;
+                        toast('优化失败: ' + e.message, 'error');
+                        setFooter('AI 优化失败');
+                    }
+                } finally {
+                    clearInterval(elapsedTimer);
+                    aiLoading.classList.remove('show');
+                    aiOptimizeBtn.disabled = false;
+                    aiAbortCtrl = null;
+                }
+            }
+
+            /* ================================================================
+               INIT
+               ================================================================ */
+            editor.refresh();
+            setFooter('就绪 — 输入 YAML 后按 Ctrl+Enter 预览');
+
+        })();
+    </script>
+</body>
+
+</html>

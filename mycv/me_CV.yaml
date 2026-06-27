@@ -1,13 +1,9 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
 cv:
   name: 钱甫新
   headline: AI应用工程师｜LLM & Agent系统
   location: 中国·合肥
   email: Mr_Qian_Ives@163.com
   phone: +86-151-5575-8979
-  # social_networks:
-  #   - network: GitHub
-  #     username: QianFuXin
 
   sections:
     个人总结:
@@ -150,11 +146,7 @@ cv:
           - 多次以第一作者身份获得校级、省级及国家级竞赛奖项
 
 design:
-  # theme: engineeringresumes
   theme: harvard
-  # theme: ink
-  # theme: sb2nov
-  # theme: ember
 
 locale:
   language: mandarin_chinese
@@ -168,10 +160,10 @@ settings:
     markdown_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.md
     html_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.html
     png_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.png
-    dont_generate_markdown: false
+    dont_generate_markdown: true
     dont_generate_html: false
     dont_generate_typst: false
     dont_generate_pdf: false
-    dont_generate_png: false
+    dont_generate_png: true
   bold_keywords: []
   pdf_title: 钱甫新 - 简历

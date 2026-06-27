@@ -1,0 +1,210 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+cv:
+  name: 钱甫新
+  headline: 数据开发工程师
+  location: 中国·合肥
+  email: Mr_Qian_Ives@163.com
+  phone: +86-151-5575-8979
+
+  sections:
+    个人总结:
+      - 5年数据开发与数据分析相关经验，具备数据采集、数据清洗、ETL开发、数仓建设及数据分析全流程实践经验
+      - 熟悉Hive数仓分层体系（ODS/DWD/DWS/ADS）、维度建模、指标体系设计及数据治理，具备企业级数据平台建设经验
+      - 熟练使用SQL、HQL、Python进行海量数据处理与分析，能够独立完成数据采集、加工、建模、分析及数据服务开发
+      - 具备消费行为分析、用户画像构建、聚类分析、关联规则挖掘等数据分析经验，能够通过数据驱动业务决策
+      - 熟悉Trino、Doris、Apache Pinot等分析引擎，具备高性能数据查询及OLAP分析平台建设经验
+      - 具备AI与大语言模型（LLM）应用开发经验，能够将RAG检索增强、智能体分析等AI能力与数据平台结合，实现数据处理与分析的智能化升级
+      - 具备良好的工程化能力与规范意识，拥有ETL开发规范、数据质量体系及数据治理实践经验
+
+    技能:
+      - label: 编程语言
+        details: Python, SQL, HQL, Go, JavaScript
+
+      - label: 大数据开发
+        details: Hive, Trino, Apache Doris, Apache Pinot, ETL开发, 数据仓库建设, 数据同步
+
+      - label: 数仓建模
+        details: ODS/DWD/DWS/ADS, Kimball维度建模, 星型模型, 指标体系设计, 数据分层设计
+
+      - label: 数据处理与分析
+        details: Pandas, NumPy, 数据清洗, 数据治理, 数据质量校验, 数据分析
+
+      - label: 数据挖掘
+        details: 用户画像, 聚类分析(K-Means), 关联规则(Apriori), 特征工程, 消费行为分析
+
+      - label: AI / LLM
+        details: RAG检索增强、Prompt Engineering、Function Calling、Agent系统、AI数据分析
+
+      - label: 后端开发
+        details: FastAPI, Flask, Gin, RESTful API
+
+      - label: 工程能力
+        details: Docker, Linux, Git, Nginx, Playwright, 自动化测试
+
+    工作经历:
+      - company: 安徽网新恒天软件有限公司
+        position: 数据开发工程师 / AI数据分析师
+        start_date: 2025-08
+        end_date: present
+        location: 中国·合肥
+        highlights:
+          - 外派Cisco、American Express项目，负责企业级数据平台建设、数仓开发及数据分析工作
+          - 负责多源业务数据接入、清洗、转换及标准化处理，建设统一数据模型与主数据体系
+          - 参与ODS、DWD、DWS、ADS分层数仓设计与开发，完成维度表、事实表及指标体系建设
+          - 基于Hive、Trino等平台开发ETL任务，实现数据抽取、转换、加载全流程自动化
+          - 基于LLM构建智能Insights自动生成能力，将告警数据分析结果转化为结构化报告，减少人工分析成本
+          - 基于消费行为数据构建用户画像，开展用户分群、消费偏好分析及关联规则挖掘
+          - 设计多维运营数据分析体系，利用AI辅助分析核心业务指标（等待时长、放弃率、拒接率），自动生成运营优化建议
+          - 建立数据质量校验机制及开发规范体系，提升数据准确性、一致性与开发效率
+
+      - company: 安徽智舟信息技术有限公司
+        position: 数据开发工程师
+        start_date: 2024-09
+        end_date: 2025-08
+        location: 中国·合肥
+        highlights:
+          - 负责企业知识库与数据分析平台建设，承担数据处理、数据服务及分析功能开发
+          - 设计文档数据解析、清洗、转换及结构化处理流程，构建RAG检索增强问答所需的知识数据底座
+          - 开发数据查询与分析服务，支持结构化数据统计分析及指标计算
+          - 实现基于LLM的Text2Chart能力，将自然语言分析需求自动转化为可视化图表
+          - 参与低代码数据分析平台建设，实现数据处理流程可视化编排
+          - 开发自动化报表及图表生成模块，提高业务数据分析效率
+
+      - company: 合肥图迅电子科技有限公司
+        position: 数据开发工程师
+        start_date: 2023-06
+        end_date: 2024-08
+        location: 中国·合肥
+        highlights:
+          - 负责AI训练数据管理平台开发，建设数据采集、清洗、转换及管理模块
+          - 设计训练数据预处理流程，实现批量数据清洗、格式转换、特征提取及质量校验
+          - 构建模型训练数据集管理与评估功能，支撑机器学习模型迭代优化
+          - 建立自动化测试体系，保障数据处理流程稳定运行
+          - 使用Docker完成系统部署与运维，提升系统稳定性与可维护性
+
+      - company: 安徽经典市场调查咨询有限公司
+        position: 数据开发工程师
+        start_date: 2021-07
+        end_date: 2023-06
+        location: 中国·合肥
+        highlights:
+          - 负责市场调研数据采集平台开发，构建多源数据自动化采集体系
+          - 基于Scrapy开发数据采集任务，实现千万级数据抓取与增量更新
+          - 基于Pandas开发ETL处理流程，完成数据清洗、标准化转换及质量校验
+          - 建立数据分析与统计模型，为市场研究报告提供数据支撑
+          - 开发内部数据服务平台，提高数据处理效率与交付质量
+
+      - company: 科大讯飞股份有限公司
+        position: 大数据工程师实习生
+        start_date: 2020-06
+        end_date: 2021-03
+        location: 中国·合肥
+        highlights:
+          - 参与大数据平台相关项目开发，负责数据处理与数据分析工作
+          - 参与NLP/CV机器学习项目的数据抽取、清洗及特征工程开发
+          - 协助完成数据处理流程优化及技术文档编写
+          - 参与机器学习数据集构建及数据预处理工作
+
+    项目经历:
+      - name: 大数据平台ETL与消费数据分析项目
+        start_date: 2026-04
+        end_date: present
+        summary: American Express · 杭州
+        highlights:
+          - 负责消费数据仓库建设，设计ODS、DWD、DWS、ADS四层数仓架构
+          - 完成品牌主数据治理及维度建模，构建统一品牌维度体系
+          - 开发数据清洗、转换及汇总ETL流程，实现多源数据统一管理
+          - 提取消费频次、客单价、品类偏好等指标，构建用户画像体系
+          - 基于K-Means聚类及Apriori关联规则分析用户行为特征，支撑精准营销
+          - 输出分析结果至ADS层，为运营报表及营销系统提供数据支撑
+          - 建立数据开发规范、数据质量校验机制及指标口径管理体系
+
+      - name: 企业级数据服务平台
+        start_date: 2025-08
+        end_date: 2026-04
+        summary: Cisco · 合肥
+        highlights:
+          - 负责企业统一数据服务平台建设，实现多数据源统一查询与管理
+          - 基于Trino整合多个异构数据源，实现跨库查询与统一访问
+          - 基于Apache Pinot构建实时分析平台，支撑秒级OLAP查询
+          - 设计标准化数据服务接口，提供统一的数据访问能力
+          - 将数据查询能力封装为AI Agent可调用的标准化工具，支撑智能分析场景
+          - 支持复杂聚合分析、多维钻取分析及即席查询场景
+
+      - name: 智能Insights分析平台
+        start_date: 2025-08
+        end_date: 2026-04
+        summary: Cisco · 合肥
+        highlights:
+          - 构建告警数据采集、清洗、转换及分析ETL流水线
+          - 基于LLM实现告警数据的自动化分析与结构化Insights报告生成，替代人工分析环节
+          - 设计数据分析Prompt模板体系，确保AI分析结果的准确性与一致性
+          - 建立数据质量监控机制，保障数据完整性与准确性
+          - 构建指标统计与分析模型，实现告警趋势分析及异常检测
+          - 提供统一数据服务接口，支撑业务系统实时分析需求
+
+      - name: CA多维度运营数据分析平台
+        start_date: 2025-08
+        end_date: 2026-04
+        summary: Cisco · 合肥
+        highlights:
+          - 构建组织、队列、通话等多维数据分析体系
+          - 设计核心业务指标模型，包括等待时长、放弃率、拒接率等关键指标
+          - 开发数据提取、指标计算及统计分析流程
+          - 引入AI辅助分析能力，自动生成运营分析报告与优化建议
+          - 支持多维交叉分析、趋势分析及运营监控
+
+      - name: 企业知识数据分析平台
+        start_date: 2024-09
+        end_date: 2025-08
+        summary: 智舟信息
+        highlights:
+          - 建设企业知识数据管理与分析平台，构建RAG检索增强问答的知识数据底座
+          - 实现文档数据采集、解析、清洗、结构化存储及向量化索引全流程管理
+          - 开发基于LLM的Text2Chart能力，将自然语言查询自动转化为数据分析图表
+          - 支持自定义数据处理流程编排及分析任务配置
+          - 提供自动化报表及图表生成能力
+
+      - name: AI训练数据管理平台
+        start_date: 2023-06
+        end_date: 2024-07
+        summary: 图迅电子
+        highlights:
+          - 基于Flask + Vue3开发AI训练数据全生命周期管理平台
+          - 设计训练数据清洗、转换、标注及质量校验模块，支撑模型迭代
+          - 实现批量数据处理、特征提取及统计分析功能
+          - 建立自动化测试体系保障数据处理质量
+          - 使用Docker完成系统部署与运维管理
+
+    教育经历:
+      - institution: 安徽信息工程学院
+        degree: 本科
+        area: 计算机科学与技术
+        start_date: 2017-09
+        end_date: 2021-06
+        location: 中国·芜湖
+        highlights:
+          - 多次以第一作者身份获得校级、省级及国家级竞赛奖项
+
+design:
+  theme: harvard
+
+locale:
+  language: mandarin_chinese
+
+settings:
+  current_date: today
+  render_command:
+    output_folder: rendercv_output
+    typst_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.typ
+    pdf_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.pdf
+    markdown_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.md
+    html_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.html
+    png_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.png
+    dont_generate_markdown: false
+    dont_generate_html: false
+    dont_generate_typst: false
+    dont_generate_pdf: false
+    dont_generate_png: false
+  bold_keywords: []
+  pdf_title: 钱甫新 - 简历

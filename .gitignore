@@ -206,7 +206,7 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-index.html
 .vscode/
 rendercv_output/
 .DS_Store
+temp/

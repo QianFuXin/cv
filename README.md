@@ -1,5 +1,5 @@
 # 使用
 
-`rendercv render me_CV.yaml --watch`
+`uv run rendercv render mycv/me_CV.yaml`
 
-`rendercv render me_Doe_CV.yaml`
+`uv run main.py`

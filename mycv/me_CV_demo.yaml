@@ -1,0 +1,74 @@
+cv:
+  name: 钱甫新
+  headline: AI应用工程师｜LLM & Agent系统
+  location: 中国·合肥
+  email: Mr_Qian_Ives@163.com
+  phone: +86-151-5575-8979
+
+  sections:
+    个人总结:
+      - 具备AI应用与后端工程背景，专注大语言模型（LLM）与Agent系统的工程化落地
+
+
+    技能:
+      - label: 编程语言
+        details: Python, Go, JavaScript
+
+    工作经历:
+
+      - company: 安徽网新恒天软件有限公司（Cisco合作项目）
+        position: AI工程师 / 智能体工程师
+        start_date: 2025-08
+        end_date: present
+        location: 中国·合肥
+        highlights:
+          - 设计并实现多智能体系统（Agentic AI），用于企业多业务流程自动化处理，支持任务拆解、工具调用与执行调度
+          - 基于ReAct + Planner机制构建任务规划能力，实现复杂任务的分步执行与动态决策
+          - 构建智能体记忆体系（上下文记忆 + 长期知识存储），提升多轮任务处理一致性
+          - 设计统一工具调用平台（基于MCP思想），实现数据库/API等多数据源标准化接入
+          - 推动告警分析等业务流程自动化，提升分析效率与准确性
+
+    项目经历:
+    
+      - name: 企业级AI工具调用平台（MCP系统）
+        start_date: 2025-08
+        end_date: 2026-04
+        summary: at in Cisco
+        highlights:
+          - 设计统一工具抽象层，将数据库/API能力封装为标准化Tool供Agent调用
+          - 基于Trino + Apache Pinot构建数据查询能力，支持大规模数据分析
+          - 设计工具调用流程，解决多工具组合调用与结果传递问题
+          - 提供CLI与API接口，提升系统接入效率
+    
+    教育经历:
+      - institution: 安徽信息工程学院
+        degree: 本科
+        area: 计算机科学与技术
+        start_date: 2017-09
+        end_date: 2021-06
+        location: 中国·芜湖
+        highlights:
+          - 多次以第一作者身份获得校级、省级及国家级竞赛奖项
+
+design:
+  theme: harvard
+
+locale:
+  language: mandarin_chinese
+
+settings:
+  current_date: today
+  render_command:
+    output_folder: rendercv_output
+    typst_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.typ
+    pdf_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.pdf
+    markdown_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.md
+    html_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.html
+    png_path: OUTPUT_FOLDER/NAME_IN_SNAKE_CASE_CV.png
+    dont_generate_markdown: true
+    dont_generate_html: true
+    dont_generate_typst: false
+    dont_generate_pdf: false
+    dont_generate_png: true
+  bold_keywords: []
+  pdf_title: 钱甫新 - 简历
