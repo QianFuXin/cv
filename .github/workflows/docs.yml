@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install "rendercv[full]"
-      - run: rendercv render mycv/me_CV.yaml --html-path ./site/index.html
+      - run: rendercv render mycv/me_CV.yaml --html-path ./site/index.html --pdf-path ./rendercv_output/mycv.pdf
 
       - name: Find and stage PDF
         id: pdf
