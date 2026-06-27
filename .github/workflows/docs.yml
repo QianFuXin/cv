@@ -26,12 +26,12 @@ jobs:
       - name: Find and stage PDF
         id: pdf
         run: |
-          PDF=$(find rendercv_output -name "*.pdf" -type f | head -1)
+          PDF=$(find . -path "*/rendercv_output/*.pdf" -type f | head -1)
           if [ -z "$PDF" ]; then
-            echo "No PDF found in rendercv_output/" >&2
+            echo "No PDF found" >&2
             exit 1
           fi
-          echo "path=$PDF" >> $GITHUB_OUTPUT
+          echo "pdf=$PDF" >> $GITHUB_OUTPUT
           echo "name=$(basename "$PDF")" >> $GITHUB_OUTPUT
           cp "$PDF" ./site/
 
@@ -46,5 +46,5 @@ jobs:
         with:
           tag_name: v${{ github.run_number }}
           name: Release v${{ github.run_number }} — ${{ github.event.head_commit.message }}
-          files: ${{ steps.pdf.outputs.path }}
+          files: ${{ steps.pdf.outputs.pdf }}
           generate_release_notes: true
