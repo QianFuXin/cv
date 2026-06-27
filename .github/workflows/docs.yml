@@ -1,11 +1,11 @@
-name: blog
+name: Deploy & Release
 on:
   push:
     branches:
       - master
       - main
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 jobs:
@@ -21,9 +21,30 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install "rendercv[full]"
-      - run: rendercv render me_CV.yaml --html-path ./site/index.html
+      - run: rendercv render mycv/me_CV.yaml --html-path ./site/index.html
+
+      - name: Find and stage PDF
+        id: pdf
+        run: |
+          PDF=$(find rendercv_output -name "*.pdf" -type f | head -1)
+          if [ -z "$PDF" ]; then
+            echo "No PDF found in rendercv_output/" >&2
+            exit 1
+          fi
+          echo "path=$PDF" >> $GITHUB_OUTPUT
+          echo "name=$(basename "$PDF")" >> $GITHUB_OUTPUT
+          cp "$PDF" ./site/
+
       - uses: actions/upload-pages-artifact@v4
         with:
           path: ./site
       - uses: actions/deploy-pages@v4
         id: deployment
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release v${{ github.run_number }} — ${{ github.event.head_commit.message }}
+          files: ${{ steps.pdf.outputs.path }}
+          generate_release_notes: true
