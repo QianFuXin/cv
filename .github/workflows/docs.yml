@@ -21,19 +21,25 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install "rendercv[full]"
-      - run: rendercv render mycv/me_CV.yaml --html-path ./site/index.html --pdf-path ./rendercv_output/mycv.pdf
+      - run: mkdir -p ./site
+      - run: rendercv render mycv/me_CV.yaml
 
-      - name: Find and stage PDF
+      - name: Collect outputs
         id: pdf
         run: |
+          # find and copy HTML
+          HTML=$(find . -path "*/rendercv_output/*.html" -type f | head -1)
+          [ -n "$HTML" ] && cp "$HTML" ./site/index.html
+
+          # find and copy PDF
           PDF=$(find . -path "*/rendercv_output/*.pdf" -type f | head -1)
           if [ -z "$PDF" ]; then
             echo "No PDF found" >&2
             exit 1
           fi
+          cp "$PDF" ./site/
           echo "pdf=$PDF" >> $GITHUB_OUTPUT
           echo "name=$(basename "$PDF")" >> $GITHUB_OUTPUT
-          cp "$PDF" ./site/
 
       - uses: actions/upload-pages-artifact@v4
         with:
